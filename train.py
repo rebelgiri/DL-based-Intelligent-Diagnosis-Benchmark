@@ -49,7 +49,7 @@ if __name__ == '__main__':
     args = parse_args()
     os.environ['CUDA_VISIBLE_DEVICES'] = args.cuda_device.strip()
     # Prepare the saving path for the model
-    sub_dir = args.model_name+'_'+args.data_name + '_' + datetime.strftime(datetime.now(), '%m%d-%H%M%S')
+    sub_dir = args.model_name + '_' + args.data_name + '_' + datetime.strftime(datetime.now(), '%m%d-%H%M%S')
     save_dir = os.path.join(args.checkpoint_dir, sub_dir)
     if not os.path.exists(save_dir):
         os.makedirs(save_dir)
