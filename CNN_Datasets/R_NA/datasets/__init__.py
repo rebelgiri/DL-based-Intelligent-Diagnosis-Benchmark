@@ -17,7 +17,7 @@ from CNN_Datasets.R_NA.datasets.PUCWT import PUCWT
 from CNN_Datasets.R_NA.datasets.PUSTFT import PUSTFT
 from CNN_Datasets.R_NA.datasets.PUSlice import PUSlice
 from CNN_Datasets.R_NA.datasets.SEU import SEU
-from CNN_Datasets.O_A.datasets.DIVIBES import DIVIBES
+from CNN_Datasets.R_NA.datasets.DIVIBES import DIVIBES
 from CNN_Datasets.R_NA.datasets.SEUFFT import SEUFFT
 from CNN_Datasets.R_NA.datasets.SEUCWT import SEUCWT
 from CNN_Datasets.R_NA.datasets.SEUSTFT import SEUSTFT

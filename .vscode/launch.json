@@ -1,0 +1,31 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Python: Current File",
+            "type": "python",
+            "request": "launch",
+            "program": "${file}",
+            "console": "integratedTerminal",
+            "justMyCode": true,
+            
+            // training
+            // "args": ["--model_name", "MLP", "--data_name", "DIVIBES", 
+            // "--data_dir", "/home/fusionsystems/Dokumente/gpa/diVibes_repo/diVibes/measurements/20230228/unwucht", 
+            // "--normlizetype", "mean-std", "--processing_type", "O_A", "--checkpoint_dir", 
+            // "Benchmark/Benchmark_Results/DIVIBES/MLP/Debug/OA_MEAN-STD"]
+
+            
+            // testing
+            "args": ["--model_name", "alexnet_1d", "--data_name", "DIVIBES", 
+            "--data_dir", "/home/fusionsystems/Dokumente/gpa/diVibes_repo/diVibes/measurements/20230228/unwucht", 
+            "--normlizetype", "mean-std", "--processing_type", "R_A", "--checkpoint_path", 
+            "Benchmark/Benchmark_Results/DIVIBES/ALEXNET_1D/RA_MEAN-STD/alexnet_1d_DIVIBES_0710-110029/99-0.9996-best_model.pth"]
+    
+
+        }
+    ]
+}

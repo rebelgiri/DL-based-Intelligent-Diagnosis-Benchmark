@@ -9,6 +9,7 @@ import torch
 from torch import nn
 from torch import optim
 import models
+import matplotlib.pyplot as plt
 
 class train_utils(object):
     def __init__(self, args, save_dir):
@@ -109,6 +110,12 @@ class train_utils(object):
         batch_loss = 0.0
         batch_acc = 0
         step_start = time.time()
+        
+        # lists to keep track of losses and accuracies
+        train_loss = [] 
+        valid_loss = []
+        train_acc = []
+        valid_acc = []
 
 
         for epoch in range(self.start_epoch, args.max_epoch):
@@ -180,9 +187,19 @@ class train_utils(object):
                             step += 1
 
 
+
+
                 # Print the train and val information via each epoch
                 epoch_loss = epoch_loss / len(self.dataloaders[phase].dataset)
                 epoch_acc = epoch_acc / len(self.dataloaders[phase].dataset)
+
+                
+                if phase == 'train':
+                    train_acc.append(epoch_acc)
+                    train_loss.append(epoch_loss)
+                else:
+                    valid_acc.append(epoch_acc)
+                    valid_loss.append(epoch_loss)
 
 
                 logging.info('Epoch: {} {}-Loss: {:.4f} {}-Acc: {:.4f}, Cost {:.4f} sec'.format(
@@ -205,15 +222,41 @@ class train_utils(object):
             if self.lr_scheduler is not None:
                 self.lr_scheduler.step()
 
+        # save the loss and accuracy plots
+        self.save_plots(train_acc, valid_acc, train_loss, valid_loss)
 
 
 
-
-
-
-
-
-
-
-
-
+    def save_plots(self, train_acc, valid_acc, train_loss, valid_loss):
+        """
+        Function to save the loss and accuracy plots to disk.
+        """
+        # accuracy plots
+        plt.figure(figsize=(10, 7))
+        plt.plot(
+            train_acc, color='green', linestyle='-', 
+            label='train accuracy'
+        )
+        plt.plot(
+            valid_acc, color='blue', linestyle='-', 
+            label='validataion accuracy'
+        )
+        plt.xlabel('Epochs')
+        plt.ylabel('Accuracy')
+        plt.legend()
+        plt.savefig(os.path.join(self.save_dir,'accuracy.png'))
+        
+        # loss plots
+        plt.figure(figsize=(10, 7))
+        plt.plot(
+            train_loss, color='orange', linestyle='-', 
+            label='train loss'
+        )
+        plt.plot(
+            valid_loss, color='red', linestyle='-', 
+            label='validataion loss'
+        )
+        plt.xlabel('Epochs')
+        plt.ylabel('Loss')
+        plt.legend()
+        plt.savefig(os.path.join(self.save_dir, 'loss.png'))

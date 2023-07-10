@@ -6,9 +6,7 @@ import os
 from datetime import datetime
 from utils.logger import setlogger
 import logging
-from utils.train_utils import train_utils
-
-
+from utils.test_utils import test_utils
 
 args = None
 
@@ -23,7 +21,7 @@ def parse_args():
     parser.add_argument('--processing_type', type=str, choices=['R_A', 'R_NA', 'O_A'], default='R_A',
                         help='R_A: random split with data augmentation, R_NA: random split without data augmentation, O_A: order split with data augmentation')
     parser.add_argument('--cuda_device', type=str, default='0', help='assign device')
-    parser.add_argument('--checkpoint_dir', type=str, default='./checkpoint', help='the directory to save the model')
+    parser.add_argument('--checkpoint_path', type=str, default='./checkpoint', help='the path of the saved model')
     parser.add_argument("--pretrained", type=bool, default=True, help='whether to load the pretrained model')
     parser.add_argument('--batch_size', type=int, default=64, help='batchsize of the training process')
     parser.add_argument('--num_workers', type=int, default=0, help='the number of training process')
@@ -49,22 +47,24 @@ if __name__ == '__main__':
 
     args = parse_args()
     os.environ['CUDA_VISIBLE_DEVICES'] = args.cuda_device.strip()
+
     # Prepare the saving path for the model
-    sub_dir = args.model_name + '_' + args.data_name + '_' + datetime.strftime(datetime.now(), '%m%d-%H%M%S')
-    save_dir = os.path.join(args.checkpoint_dir, sub_dir)
-    if not os.path.exists(save_dir):
-        os.makedirs(save_dir)
+    # sub_dir = args.model_name + '_' + args.data_name + '_' + datetime.strftime(datetime.now(), '%m%d-%H%M%S')
+    
+    # if not os.path.exists(save_dir):
+    #     os.makedirs(save_dir)
 
     # set the logger
-    setlogger(os.path.join(save_dir, 'training.log'))
+    checkpoint_folder = '/'.join(args.checkpoint_path.rsplit('/')[:-1])
+    setlogger(os.path.join(checkpoint_folder, 'testing.log'))
 
     # save the args
     for k, v in args.__dict__.items():
         logging.info("{}: {}".format(k, v))
 
-    trainer = train_utils(args, save_dir)
-    trainer.setup()
-    trainer.train()
+    tester = test_utils(args)
+    tester.setup()
+    tester.test()
 
 
 
