@@ -54,6 +54,13 @@ This repository is organized as:
 - for example, use the following commands to test MLP for SEU with mean-std normalization and data augmentation
 - `python train.py --model_name MLP --data_name SEU --data_dir ./Data/Mechanical-datasets --normlizetype mean-std --processing_type O_A --checkpoint_dir ./Benchmark/Benchmark_Results/Order_split/SEU/MLP_mean-std_augmentation`
 
+- use the test.py to test MLP, CNN, and MLP models
+
+- for example, use the following commands to test MLP for SEU with mean-std normalization and data augmentation. You need to provide checkpoint path.
+
+- `python test.py --model_name MLP --data_name SEU --data_dir ./Data/Mechanical-datasets --normlizetype mean-std --processing_type O_A --checkpoint_path ./Benchmark/Benchmark_Results/Order_split/SEU/MLP_mean-std_augmentation/XXX_best_model.pth`
+
+
 - use the train_ae.py to test AE models
 - for example, use the following commands to test SAE for SEU with mean-std normalization and data augmentation
 - `python train_ae.py --model_name Sae1d --data_name SEU --data_dir ./Data/Mechanical-datasets --normlizetype mean-std --processing_type O_A --checkpoint_dir ./Benchmark/Benchmark_Results/Order_split/SEU/Sae1d_mean-std_augmentation`
